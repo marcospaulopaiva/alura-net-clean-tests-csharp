@@ -1,10 +1,13 @@
 ﻿using Alura.Adopet.Console.Comandos;
+using Alura.Adopet.Console.Servicos;
+
+var httpClintPet = new HttpClientPet(new AdopetAPIClientFactory().CreateClient("adopet"));
 
 Dictionary<string, IComando> comandosDoSistema = new()
 {
     {"help",new Help() },
-    {"import",new Import()},
-    {"list",new List() },
+    {"import",new Import(httpClintPet)},
+    {"list",new List(httpClintPet) },
     {"show",new Show() },
 };
 

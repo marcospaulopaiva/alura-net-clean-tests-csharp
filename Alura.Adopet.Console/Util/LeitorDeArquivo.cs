@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Alura.Adopet.Console.Modelos;
+﻿using Alura.Adopet.Console.Modelos;
 
 namespace Alura.Adopet.Console.Util
 {
-    internal class LeitorDeArquivo
+    public class LeitorDeArquivo
     {
-        public List<Pet> RealizaLeitura(string caminhoDoArquivoASerLido)
+
+        private string _caminhoDoArquivoASerLido;
+
+        public LeitorDeArquivo(string caminhoDoArquivoASerLido)
         {
+            _caminhoDoArquivoASerLido = caminhoDoArquivoASerLido;
+        }
+
+        public List<Pet>? RealizaLeitura()
+        {
+            if (String.IsNullOrEmpty(_caminhoDoArquivoASerLido)) return null;
+
             List<Pet> listaDePet = new List<Pet>();
-            using (StreamReader sr = new StreamReader(caminhoDoArquivoASerLido))
+            using (StreamReader sr = new StreamReader(_caminhoDoArquivoASerLido))
             {
                 System.Console.WriteLine("----- Dados a serem importados -----");
                 while (!sr.EndOfStream)
