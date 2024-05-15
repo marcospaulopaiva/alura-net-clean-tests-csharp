@@ -1,4 +1,3 @@
-
 using Alura.Adopet.Console.Servicos;
 using Moq;
 using Moq.Protected;

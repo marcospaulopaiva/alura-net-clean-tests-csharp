@@ -12,7 +12,7 @@ namespace Alura.Adopet.Console.Util
             _caminhoDoArquivoASerLido = caminhoDoArquivoASerLido;
         }
 
-        public List<Pet>? RealizaLeitura()
+        public virtual List<Pet>? RealizaLeitura()
         {
             if (String.IsNullOrEmpty(_caminhoDoArquivoASerLido)) return null;
 
