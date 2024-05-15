@@ -31,11 +31,9 @@ namespace Alura.Adopet.Console.Comandos
 
                 foreach (var pet in listaDePet)
                 {
-                    System.Console.WriteLine(pet);
                     await _clientPet.CreatePetAsync(pet);
                 }
-
-                return Result.Ok().WithSuccess(new SuccessWithPets(listaDePet));
+                return Result.Ok().WithSuccess(new SuccessWithPets(listaDePet,"Importação Realizada com Sucesso!"));
             }
             catch (Exception exception)
             {

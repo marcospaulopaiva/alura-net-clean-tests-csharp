@@ -1,3 +1,0 @@
-2024-05-14 21:19:16.482 -03:00 [INF] Listagem gerada com sucesso!
-2024-05-14 23:09:28.558 -03:00 [INF] Listagem gerada com sucesso!
-2024-05-14 23:34:06.883 -03:00 [INF] Listagem gerada com sucesso!

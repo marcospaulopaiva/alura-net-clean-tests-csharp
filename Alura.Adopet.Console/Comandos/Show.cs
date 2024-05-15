@@ -12,7 +12,6 @@ namespace Alura.Adopet.Console.Comandos
             this.ExibeConteudoArquivo(caminhoDoArquivoASerExibido: args[1]); 
             return Task.FromResult(Result.Ok());
         }
-
         private void ExibeConteudoArquivo(string caminhoDoArquivoASerExibido)
         {
             LeitorDeArquivo leitor = new LeitorDeArquivo(caminhoDoArquivoASerExibido);

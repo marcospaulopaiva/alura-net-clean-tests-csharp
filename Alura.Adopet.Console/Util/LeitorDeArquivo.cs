@@ -4,14 +4,12 @@ namespace Alura.Adopet.Console.Util
 {
     public class LeitorDeArquivo
     {
-
         private string _caminhoDoArquivoASerLido;
 
         public LeitorDeArquivo(string caminhoDoArquivoASerLido)
         {
             _caminhoDoArquivoASerLido = caminhoDoArquivoASerLido;
         }
-
         public virtual List<Pet>? RealizaLeitura()
         {
             if (String.IsNullOrEmpty(_caminhoDoArquivoASerLido)) return null;
@@ -19,7 +17,6 @@ namespace Alura.Adopet.Console.Util
             List<Pet> listaDePet = new List<Pet>();
             using (StreamReader sr = new StreamReader(_caminhoDoArquivoASerLido))
             {
-                System.Console.WriteLine("----- Dados a serem importados -----");
                 while (!sr.EndOfStream)
                 {
                     // separa linha usando ponto e vírgula
