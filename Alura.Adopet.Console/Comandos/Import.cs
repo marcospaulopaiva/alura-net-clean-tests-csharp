@@ -1,36 +1,44 @@
 ﻿using Alura.Adopet.Console.Modelos;
 using Alura.Adopet.Console.Servicos;
 using Alura.Adopet.Console.Util;
+using FluentResults;
 
 namespace Alura.Adopet.Console.Comandos
 {
     [DocComandoAttribute(instrucao: "import",
         documentacao: "adopet import <ARQUIVO> comando que realiza a importação do arquivo de pets.")]
-    internal class Import:IComando
+    public class Import:IComando
     {
-        public async Task ExecutarAsync(string[] args)
+        private readonly HttpClientPet _clientPet;
+        private readonly LeitorDeArquivo _leitorDeArquivo;
+
+        public Import(HttpClientPet clientPet, LeitorDeArquivo leitorDeArquivo)
         {
-            await this.ImportacaoArquivoPetAsync(caminhoDoArquivoDeImportacao: args[1]);
+            _clientPet = clientPet;
+            _leitorDeArquivo = leitorDeArquivo;
         }
 
-        private async Task ImportacaoArquivoPetAsync(string caminhoDoArquivoDeImportacao)
+        public async Task<Result> ExecutarAsync(string[] args)
         {
-            var leitor = new LeitorDeArquivo();
-            List<Pet> listaDePet = leitor.RealizaLeitura(caminhoDoArquivoDeImportacao);
-            foreach (var pet in listaDePet)
+           return await this.ImportacaoArquivoPetAsync(caminhoDoArquivoDeImportacao: args[1]);
+        }
+
+        private async Task<Result> ImportacaoArquivoPetAsync(string caminhoDoArquivoDeImportacao)
+        {
+            try
             {
-                System.Console.WriteLine(pet);
-                try
+                List<Pet> listaDePet = _leitorDeArquivo.RealizaLeitura();
+
+                foreach (var pet in listaDePet)
                 {
-                    var httpCreatePet = new HttpClientPet();
-                    await httpCreatePet.CreatePetAsync(pet);
+                    await _clientPet.CreatePetAsync(pet);
                 }
-                catch (Exception ex)
-                {
-                    System.Console.WriteLine(ex.Message);
-                }
+                return Result.Ok().WithSuccess(new SuccessWithPets(listaDePet,"Importação Realizada com Sucesso!"));
             }
-            System.Console.WriteLine("Importação concluída!");
+            catch (Exception exception)
+            {
+                return Result.Fail(new Error("Importação falhou!").CausedBy(exception));
+            }
         }
     }
 }

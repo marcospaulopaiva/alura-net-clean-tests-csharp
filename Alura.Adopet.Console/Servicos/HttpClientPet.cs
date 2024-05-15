@@ -7,22 +7,13 @@ namespace Alura.Adopet.Console.Servicos
     public class HttpClientPet
     {
         private HttpClient client;
-        public HttpClientPet(string uri = "http://localhost:5057")
+
+        public HttpClientPet(HttpClient client)
         {
-            client = ConfiguraHttpClient(uri);
+            this.client = client;
         }
 
-        HttpClient ConfiguraHttpClient(string url)
-        {
-            HttpClient _client = new HttpClient();
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            _client.BaseAddress = new Uri(url);
-            return _client;
-        }
-
-        public Task CreatePetAsync(Pet pet)
+        public virtual Task CreatePetAsync(Pet pet)
         {
             return client.PostAsJsonAsync("pet/add", pet);
         }
